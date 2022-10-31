@@ -1,8 +1,8 @@
 import { BigInt, Address } from "@graphprotocol/graph-ts";
 import {
-  YourContract,
+  CyberneticOrganism,
   SetPurpose,
-} from "../generated/YourContract/YourContract";
+} from "../generated/CyberneticOrganism/CyberneticOrganism";
 import { Purpose, Sender } from "../generated/schema";
 
 export function handleSetPurpose(event: SetPurpose): void {
