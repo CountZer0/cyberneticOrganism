@@ -300,8 +300,11 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
-        <Menu.Item key="/debug">
-          <Link to="/debug">Debug Contracts</Link>
+        <Menu.Item key="/debug1">
+          <Link to="/debug1">Debug Cybernetic Organism</Link>
+        </Menu.Item>
+        <Menu.Item key="/debug2">
+          <Link to="/debug2">Debug Cy8029</Link>
         </Menu.Item>
         <Menu.Item key="/hints">
           <Link to="/hints">Hints</Link>
@@ -322,7 +325,7 @@ function App(props) {
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
         </Route>
-        <Route exact path="/debug">
+        <Route exact path="/debug1">
           {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
@@ -331,6 +334,23 @@ function App(props) {
 
           <Contract
             name="CyberneticOrganism"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+        </Route>
+        <Route exact path="/debug2">
+          {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+
+          <Contract
+            name="Cy8029"
             price={price}
             signer={userSigner}
             provider={localProvider}

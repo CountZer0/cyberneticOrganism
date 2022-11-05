@@ -1,8 +1,11 @@
 import { BigInt, Address } from "@graphprotocol/graph-ts";
+
 import {
-  CyberneticOrganism,
+  // CyberneticOrganism,
   SetPurpose,
-} from "../generated/CyberneticOrganism/CyberneticOrganism";
+// @ts-ignore
+}from "../generated/CyberneticOrganism/CyberneticOrganism";
+// @ts-ignore
 import { Purpose, Sender } from "../generated/schema";
 
 export function handleSetPurpose(event: SetPurpose): void {

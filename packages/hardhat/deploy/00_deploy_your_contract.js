@@ -1,4 +1,6 @@
 // deploy/00_deploy_your_contract.js
+// noinspection JSUnusedLocalSymbols
+/* eslint-disable no-unused-vars */
 
 const { ethers } = require("hardhat");
 
@@ -15,6 +17,7 @@ const localChainId = "31337";
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
+  // eslint-disable-next-line no-unused-vars
   const chainId = await getChainId();
 
   await deploy("CyberneticOrganism", {
@@ -25,8 +28,15 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     waitConfirmations: 5,
   });
 
+  await deploy("Cy8029", {
+    from: deployer,
+    log: true,
+    waitConfirmations: 5,
+  });
+
   // Getting a previously deployed contract
-  const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);
+  // const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);
+  // const CyberneticOrganism = await ethers.getContract("Cy8029", deployer);
   /*  await CyberneticOrganism.setPurpose("Hello");
   
     // To take ownership of CyberneticOrganism using the ownable library uncomment next line and add the 
@@ -79,4 +89,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   console.error(error);
   // }
 };
-module.exports.tags = ["CyberneticOrganism"];
+module.exports.tags = ["CyberneticOrganism", "Cy8029"];
