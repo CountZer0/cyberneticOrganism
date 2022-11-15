@@ -2,8 +2,8 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import * as DiceUtilities from "./DiceUtilities.sol";
-import * as CyborgTables from "./CyborgTables.sol";
+import "./DiceUtilities.sol";
+import "./CyborgTables.sol";
 import "./Base64.sol";
 
 contract CyberneticOrganism is ERC721URIStorage{
