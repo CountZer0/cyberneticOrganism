@@ -1,8 +1,11 @@
 import { BigInt, Address } from "@graphprotocol/graph-ts";
+
 import {
-  YourContract,
+  // CyberneticOrganism,
   SetPurpose,
-} from "../generated/YourContract/YourContract";
+// @ts-ignore
+}from "../generated/CyberneticOrganism/CyberneticOrganism";
+// @ts-ignore
 import { Purpose, Sender } from "../generated/schema";
 
 export function handleSetPurpose(event: SetPurpose): void {
