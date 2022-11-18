@@ -34,6 +34,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     waitConfirmations: 5,
   });
 
+  await deploy("AvatarDNA", {
+    from: deployer,
+    log: true,
+    waitConfirmations: 5,
+  });
+
   // Getting a previously deployed contract
   // const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);
   // const CyberneticOrganism = await ethers.getContract("Cy8029", deployer);
@@ -89,4 +95,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   console.error(error);
   // }
 };
-module.exports.tags = ["CyberneticOrganism", "Cy8029"];
+module.exports.tags = ["CyberneticOrganism", "Cy8029", "AvatarDNA"];
