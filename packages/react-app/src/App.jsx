@@ -30,7 +30,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { getRPCPollTime, Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, ExampleUI } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -71,6 +71,7 @@ const providers = [
   "https://rpc.scaffoldeth.io:48544",
 ];
 
+// noinspection JSUnusedLocalSymbols
 function App(props) {
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
@@ -306,6 +307,9 @@ function App(props) {
         <Menu.Item key="/debug2">
           <Link to="/debug2">Debug Cy8029</Link>
         </Menu.Item>
+        <Menu.Item key="/debug3">
+          <Link to="/debug3">Debug AvatarDNA</Link>
+        </Menu.Item>
         <Menu.Item key="/exampleui">
           <Link to="/exampleui">ExampleUI</Link>
         </Menu.Item>
@@ -342,6 +346,23 @@ function App(props) {
 
           <Contract
             name="Cy8029"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+        </Route>
+        <Route exact path="/debug3">
+          {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+
+          <Contract
+            name="AvatarDNA"
             price={price}
             signer={userSigner}
             provider={localProvider}
