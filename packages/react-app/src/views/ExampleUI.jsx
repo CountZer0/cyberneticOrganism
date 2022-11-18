@@ -25,7 +25,7 @@ export default function ExampleUI({
       */}
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
         <h2>Example UI:</h2>
-        <h4>purpose: {purpose}</h4>
+        <h4>Total Characters: {purpose}</h4>
         <Divider />
         <div style={{ margin: 8 }}>
           <Input
@@ -38,7 +38,7 @@ export default function ExampleUI({
             onClick={async () => {
               /* look how you call setPurpose on your contract: */
               /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts.CyberneticOrganism.setPurpose(newPurpose), update => {
+              const result = tx(writeContracts.CyberneticOrganism.getNumberOfCharacters(), update => {
                 console.log("📡 Transaction Update:", update);
                 if (update && (update.status === "confirmed" || update.status === 1)) {
                   console.log(" 🍾 Transaction " + update.hash + " finished!");
@@ -57,46 +57,23 @@ export default function ExampleUI({
               console.log(await result);
             }}
           >
-            Set Purpose!
+            Get Number of Characters!
           </Button>
         </div>
-        <Divider />
-        Your Address:
-        <Address address={address} ensProvider={mainnetProvider} fontSize={16} />
-        <Divider />
-        ENS Address Example:
-        <Address
-          address="0x34aA3F359A9D614239015126635CE7732c18fDF3" /* this will show as austingriffith.eth */
-          ensProvider={mainnetProvider}
-          fontSize={16}
-        />
         <Divider />
         {/* use utils.formatEther to display a BigNumber: */}
         <h2>Your Balance: {yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</h2>
         <div>OR</div>
         <Balance address={address} provider={localProvider} price={price} />
         <Divider />
-        <div>🐳 Example Whale Balance:</div>
-        <Balance balance={utils.parseEther("1000")} provider={localProvider} price={price} />
-        <Divider />
-        {/* use utils.formatEther to display a BigNumber: */}
-        <h2>Your Balance: {yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</h2>
-        <Divider />
-        Your Contract Address:
-        <Address
-          address={readContracts && readContracts.CyberneticOrganism ? readContracts.CyberneticOrganism.address : null}
-          ensProvider={mainnetProvider}
-          fontSize={16}
-        />
-        <Divider />
         <div style={{ margin: 8 }}>
           <Button
             onClick={() => {
               /* look how you call setPurpose on your contract: */
-              tx(writeContracts.CyberneticOrganism.setPurpose("🍻 Cheers"));
+              tx(writeContracts.CyberneticOrganism.getHitPoints(0));
             }}
           >
-            Set Purpose to &quot;🍻 Cheers&quot;
+            Get Hit Points
           </Button>
         </div>
         <div style={{ margin: 8 }}>
@@ -121,7 +98,7 @@ export default function ExampleUI({
             onClick={() => {
               /* look how we call setPurpose AND send some value along */
               tx(
-                writeContracts.CyberneticOrganism.setPurpose("💵 Paying for this one!", {
+                writeContracts.CyberneticOrganism.getHitPoints("💵 Paying for this one!", {
                   value: utils.parseEther("0.001"),
                 }),
               );
@@ -138,9 +115,7 @@ export default function ExampleUI({
               tx({
                 to: writeContracts.CyberneticOrganism.address,
                 value: utils.parseEther("0.001"),
-                data: writeContracts.CyberneticOrganism.interface.encodeFunctionData("setPurpose(string)", [
-                  "🤓 Whoa so 1337!",
-                ]),
+                data: writeContracts.CyberneticOrganism.interface.encodeFunctionData("getHitPoints(int)", [0]),
               });
               /* this should throw an error about "no fallback nor receive function" until you add it */
             }}
