@@ -68,7 +68,10 @@
       "**/hardhat-ts/**"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "hardhat-insight": "^0.1.4",
+    "truffle-contract-size": "^2.0.1"
+  },
   "devDependencies": {
     "husky": "^7.0.2",
     "lint-staged": "^13.0.3"

@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 require("dotenv").config();
+// require('hardhat-contract-sizer');
+// require("hardhat-insight");
 const { utils } = require("ethers");
 const fs = require("fs");
 const chalk = require("chalk");
