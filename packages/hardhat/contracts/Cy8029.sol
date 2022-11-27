@@ -45,7 +45,6 @@ contract Cy8029 is CyberneticOrganism{
 
         return newTokenId;
     }
-
 }
 
 

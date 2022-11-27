@@ -2,8 +2,8 @@ import { Button, Card, DatePicker, Divider, Input, Progress, Slider, Spin, Switc
 import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
-
-import { Address, Balance, Events } from "../components";
+import { Balance, Events } from "../components";
+import localBackgroundImage from "../img/Count_Zer0_continuity_artificial_intelligence_e9251595-46d2-4530-b7c3-91fd07c5938a.png";
 
 export default function ExampleUI({
   purpose,
@@ -16,14 +16,28 @@ export default function ExampleUI({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
+  // const [newPurpose, setNewPurpose] = useState("loading...");
+  const [setNewPurpose] = useState("loading...");
 
   return (
     <div>
       {/*
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}
-      <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
+      <div
+        style={{
+          border: "1px solid #cccccc",
+          padding: 16,
+          width: 400,
+          margin: "auto",
+          marginTop: 64,
+          backgroundImage: `url(${localBackgroundImage})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          height: 1024,
+        }}
+      >
         <h2>Example UI:</h2>
         <h4>Total Characters: {purpose}</h4>
         <Divider />

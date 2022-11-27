@@ -2,6 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./DiceUtilities.sol";
 import "./CyborgTables.sol";
 import "./Base64.sol";
@@ -92,6 +93,10 @@ contract CyberneticOrganism is ERC721URIStorage{
         return characters[tokenId].hitPoints;
     }
 
+    function setHitPoints(uint256 tokenId, int8 hitPoints) public{
+        characters[tokenId].hitPoints = hitPoints;
+    }
+
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
@@ -100,12 +105,12 @@ contract CyberneticOrganism is ERC721URIStorage{
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 350"><style>.base { stroke: "black"; font-family: monospace; font-size: 12px; }</style><rect width="100%" height="100%" fill="yellow" /><text x="10" y="20" class="base">';
 
         parts[1] = characters[id].name;
-        parts[2] = uint256ToString(uint256(uint8(characters[id].strength)));
-        parts[3] = uint256ToString(uint256(uint8(characters[id].agility)));
-        parts[4] = uint256ToString(uint256(uint8(characters[id].presence)));
-        parts[5] = uint256ToString(uint256(uint8(characters[id].toughness)));
-        parts[6] = uint256ToString(uint256(uint8(characters[id].knowledge)));
-        parts[7] = uint256ToString(uint256(uint8(characters[id].hitPoints)));
+        parts[2] = Strings.toString(uint256(uint8(characters[id].strength)));
+        parts[3] = Strings.toString(uint256(uint8(characters[id].agility)));
+        parts[4] = Strings.toString(uint256(uint8(characters[id].presence)));
+        parts[5] = Strings.toString(uint256(uint8(characters[id].toughness)));
+        parts[6] = Strings.toString(uint256(uint8(characters[id].knowledge)));
+        parts[7] = Strings.toString(uint256(uint8(characters[id].hitPoints)));
 
         // roll attribute data
         uint8[] memory oneToFiftyRolls = DiceUtilities.dieRollsMultiple(50, 1, 3);
@@ -116,7 +121,7 @@ contract CyberneticOrganism is ERC721URIStorage{
         string memory svg = string(
             abi.encodePacked(
                 parts[0],
-                "Soul: 0x", _toString(walletAddress), '</text><text x="10" y="40" class="base">',
+                "Soul: 0x", Strings.toHexString(walletAddress), '</text><text x="10" y="40" class="base">',
                 "Name: ", parts[1], '</text><text x="10" y="60" class="base">',
                 "Strength: ", parts[2], '</text><text x="10" y="80" class="base">',
                 "Agility: ", parts[3], '</text><text x="10" y="100" class="base">'
@@ -147,7 +152,7 @@ contract CyberneticOrganism is ERC721URIStorage{
         attributes = string(
             abi.encodePacked(
                 attributes,
-//                ', {"display_type": "number", "trait_type": "Generation", "value": "1.0"}',
+                ', {"display_type": "number", "trait_type": "Generation", "value": "1.0"}',
                 ', {"trait_type": "Style", "value": "', style, '"}',
                 ', {"trait_type": "Feature", "value": "', feature, '"}',
                 ', {"trait_type": "Obsession", "value": "', obsession, '"}',
@@ -172,7 +177,7 @@ contract CyberneticOrganism is ERC721URIStorage{
                             image,
                             '", "external_url":"',
                             characters[id].externalUrl,
-                            '", "description": "I am souldbound to 0x', _toString(walletAddress), '."',
+                            '", "description": "I am souldbound to 0x', Strings.toHexString(walletAddress), '."',
                             ', "attributes": [',
                             attributes,
                             ']}'
@@ -181,31 +186,6 @@ contract CyberneticOrganism is ERC721URIStorage{
                 )
             )
         );
-    }
-
-    function _toString(address x) internal pure returns (string memory) {
-        bytes memory s = new bytes(40);
-        for (uint i = 0; i < 20; i++) {
-            bytes1 b = bytes1(uint8(uint(uint160(x)) / (2**(8*(19 - i)))));
-            bytes1 hi = bytes1(uint8(b) / 16);
-            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
-            s[2*i] = char(hi);
-            s[2*i+1] = char(lo);
-        }
-        return string(s);
-    }
-
-    function char(bytes1 b) internal pure returns (bytes1 c) {
-        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
-        else return bytes1(uint8(b) + 0x57);
-    }
-
-    function uint256ToString(uint256 number) internal pure returns (string memory) {
-        // from int8 to uint8 to uint256
-        if (number > 200){
-            return string(abi.encodePacked("-", Strings.toString(256-number)));
-        }
-        return Strings.toString(number);
     }
 }
 

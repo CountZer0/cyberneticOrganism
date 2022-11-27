@@ -2,6 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./DiceUtilities.sol";
 import "./CyborgTables.sol";
 import "./Base64.sol";
@@ -21,7 +22,9 @@ contract AvatarDNA is ERC721URIStorage{
 
         int8 hitPoints;
 
-        string externalUrl;
+//        string externalUrl;
+//        string ipfs;
+        string ipfsURLs;
     }
 
     Avatar[] public avatars;
@@ -38,7 +41,9 @@ contract AvatarDNA is ERC721URIStorage{
         int8 toughness,
         int8 knowledge,
         int8 hitPoints,
-        string memory externalUrl
+//        string memory externalUrl,
+//        string memory ipfs
+        string memory ipfsURLs
     ) public returns (uint256) {
         uint256 newTokenId = tokenCounter;
 
@@ -51,7 +56,9 @@ contract AvatarDNA is ERC721URIStorage{
                 toughness,
                 knowledge,
                 hitPoints,
-                externalUrl
+//                externalUrl,
+//                ipfs
+                ipfsURLs
             )
         );
 
@@ -73,7 +80,9 @@ contract AvatarDNA is ERC721URIStorage{
         int, // toughness
         int, // knowledge
         int, // hitPoints
-        string memory // externalUrl
+//        string memory, // externalUrl
+//        string memory // ipfs
+        string memory // ipfsURLs
     )
     {
         // only allowed to return max of 7 attributes
@@ -84,7 +93,9 @@ contract AvatarDNA is ERC721URIStorage{
         avatars[tokenId].toughness,
         avatars[tokenId].knowledge,
         avatars[tokenId].hitPoints,
-        avatars[tokenId].externalUrl
+//        avatars[tokenId].externalUrl,
+//        avatars[tokenId].ipfs
+        avatars[tokenId].ipfsURLs
         );
     }
 
@@ -92,17 +103,21 @@ contract AvatarDNA is ERC721URIStorage{
         return avatars[tokenId].hitPoints;
     }
 
+    function setHitPoints(uint256 tokenId, int8 hitPoints) public{
+        avatars[tokenId].hitPoints = hitPoints;
+    }
+
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
         string[9] memory parts;
         parts[1] = avatars[id].name;
-        parts[2] = uint256ToString(uint256(uint8(avatars[id].strength)));
-        parts[3] = uint256ToString(uint256(uint8(avatars[id].agility)));
-        parts[4] = uint256ToString(uint256(uint8(avatars[id].presence)));
-        parts[5] = uint256ToString(uint256(uint8(avatars[id].toughness)));
-        parts[6] = uint256ToString(uint256(uint8(avatars[id].knowledge)));
-        parts[7] = uint256ToString(uint256(uint8(avatars[id].hitPoints)));
+        parts[2] = Strings.toString(uint256(uint8(avatars[id].strength)));
+        parts[3] = Strings.toString(uint256(uint8(avatars[id].agility)));
+        parts[4] = Strings.toString(uint256(uint8(avatars[id].presence)));
+        parts[5] = Strings.toString(uint256(uint8(avatars[id].toughness)));
+        parts[6] = Strings.toString(uint256(uint8(avatars[id].knowledge)));
+        parts[7] = Strings.toString(uint256(uint8(avatars[id].hitPoints)));
 
         // roll attribute data
         uint8[] memory oneToFiftyRolls = DiceUtilities.dieRollsMultiple(50, 1, 3);
@@ -116,7 +131,7 @@ contract AvatarDNA is ERC721URIStorage{
         string memory attributes = string(
             abi.encodePacked(
 //                '{ "trait_type": "Base", "value": "Cy80RG"}',
-                ', {"trait_type": "Strength", "value": ', parts[2], '}',
+                '{"trait_type": "Strength", "value": ', parts[2], '}',
                 ', {"trait_type": "Agility", "value": ', parts[3], '}',
                 ', {"trait_type": "Presence", "value": ', parts[4], '}',
                 ', {"trait_type": "Toughness", "value": ', parts[5], '}',
@@ -127,7 +142,7 @@ contract AvatarDNA is ERC721URIStorage{
         attributes = string(
             abi.encodePacked(
                 attributes,
-//                ', {"display_type": "number", "trait_type": "Generation", "value": "1.0"}',
+                ', {"display_type": "number", "trait_type": "Generation", "value": "1.0"}',
                 ', {"trait_type": "Style", "value": "', style, '"}',
                 ', {"trait_type": "Feature", "value": "', feature, '"}',
                 ', {"trait_type": "Obsession", "value": "', obsession, '"}',
@@ -135,7 +150,10 @@ contract AvatarDNA is ERC721URIStorage{
             )
         );
 
-        bytes memory image = "ipfs://bafybeibdbvbg7vzikrbdrvhrcyycw3es3rzdrjmeaubyiykxupmj6qpiq4";
+//        bytes memory image = "ipfs://bafybeibdbvbg7vzikrbdrvhrcyycw3es3rzdrjmeaubyiykxupmj6qpiq4";
+
+//        bytes memory ipfsImage = avatars[id].ipfsURLs;
+//        bytes memory externalUrlImage = avatars[id].ipfsURLs;
 
         return string(
             abi.encodePacked(
@@ -146,10 +164,13 @@ contract AvatarDNA is ERC721URIStorage{
                             '{"name":"',
                             parts[1],
                             '", "image":"',
-                            image,
+//                            image,
+//                            avatars[id].ipfs,
+                                avatars[id].ipfsURLs,
                             '", "external_url":"',
-                            avatars[id].externalUrl,
-                            '", "description": "I am souldbound to 0x', _toString(walletAddress), '."',
+//                            avatars[id].externalUrl,
+                                avatars[id].ipfsURLs,
+                            '", "description": "I am souldbound to 0x', Strings.toHexString(walletAddress), '."',
                             ', "attributes": [',
                             attributes,
                             ']}'
@@ -160,30 +181,6 @@ contract AvatarDNA is ERC721URIStorage{
         );
     }
 
-    function _toString(address x) internal pure returns (string memory) {
-        bytes memory s = new bytes(40);
-        for (uint i = 0; i < 20; i++) {
-            bytes1 b = bytes1(uint8(uint(uint160(x)) / (2**(8*(19 - i)))));
-            bytes1 hi = bytes1(uint8(b) / 16);
-            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
-            s[2*i] = char(hi);
-            s[2*i+1] = char(lo);
-        }
-        return string(s);
-    }
-
-    function char(bytes1 b) internal pure returns (bytes1 c) {
-        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
-        else return bytes1(uint8(b) + 0x57);
-    }
-
-    function uint256ToString(uint256 number) internal pure returns (string memory) {
-        // from int8 to uint8 to uint256
-        if (number > 200){
-            return string(abi.encodePacked("-", Strings.toString(256-number)));
-        }
-        return Strings.toString(number);
-    }
 }
 
 
