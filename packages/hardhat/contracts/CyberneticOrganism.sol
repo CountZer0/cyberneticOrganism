@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "./DiceUtilities.sol";
 import "./CyborgTables.sol";
+import "./StringUtil.sol";
 import "./Base64.sol";
 
 contract CyberneticOrganism is ERC721URIStorage{
@@ -105,12 +106,12 @@ contract CyberneticOrganism is ERC721URIStorage{
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 350"><style>.base { stroke: "black"; font-family: monospace; font-size: 12px; }</style><rect width="100%" height="100%" fill="yellow" /><text x="10" y="20" class="base">';
 
         parts[1] = characters[id].name;
-        parts[2] = Strings.toString(uint256(uint8(characters[id].strength)));
-        parts[3] = Strings.toString(uint256(uint8(characters[id].agility)));
-        parts[4] = Strings.toString(uint256(uint8(characters[id].presence)));
-        parts[5] = Strings.toString(uint256(uint8(characters[id].toughness)));
-        parts[6] = Strings.toString(uint256(uint8(characters[id].knowledge)));
-        parts[7] = Strings.toString(uint256(uint8(characters[id].hitPoints)));
+        parts[2] = StringUtil.uint256ToString(uint256(uint8(characters[id].strength)));
+        parts[3] = StringUtil.uint256ToString(uint256(uint8(characters[id].agility)));
+        parts[4] = StringUtil.uint256ToString(uint256(uint8(characters[id].presence)));
+        parts[5] = StringUtil.uint256ToString(uint256(uint8(characters[id].toughness)));
+        parts[6] = StringUtil.uint256ToString(uint256(uint8(characters[id].knowledge)));
+        parts[7] = StringUtil.uint256ToString(uint256(uint8(characters[id].hitPoints)));
 
         // roll attribute data
         uint8[] memory oneToFiftyRolls = DiceUtilities.dieRollsMultiple(50, 1, 3);

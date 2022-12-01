@@ -28,16 +28,20 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     waitConfirmations: 5,
   });
 
-  await deploy("Cy8029", {
+  await deploy("AvatarDNA", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
   });
 
-  await deploy("AvatarDNA", {
+  // const avatarDNA = await ethers.getContract("AvatarDNA", deployer);
+  // const cyborg = await ethers.getContract("CyberneticOrganism", deployer);
+
+  await deploy("Cy8029", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
+    // args: [cyborg.address],
   });
 
   // Getting a previously deployed contract
