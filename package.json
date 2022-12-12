@@ -69,6 +69,7 @@
     ]
   },
   "dependencies": {
+    "caniuse-lite": "^1.0.30001436",
     "hardhat-insight": "^0.1.4",
     "truffle-contract-size": "^2.0.1"
   },

@@ -1,4 +1,4 @@
-import { useContractReader } from "eth-hooks";
+// import { useContractReader } from "eth-hooks";
 // import { ethers } from "ethers";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import localBackgroundImage from "../img/Count_Zer0_continuity_artificial_intell
 function Home({ yourLocalBalance, readContracts }) {
   // you can also use hooks locally in your component of choice
   // in this case, let's keep track of 'purpose' variable from our contract
-  const purpose = useContractReader(readContracts, "CyberneticOrganism", "purpose");
+  // const purpose = useContractReader(readContracts, "CyberneticOrganism", "purpose");
 
   return (
     <div>
