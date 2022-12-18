@@ -90,18 +90,20 @@ contract CyberneticOrganism is ERC721URIStorage{
         );
     }
 
-    function getHitPoints(uint256 tokenId) public view returns (int8){
-        return characters[tokenId].hitPoints;
-    }
+//    function getHitPoints(uint256 tokenId) public view returns (int8) {
+//        return characters[tokenId].hitPoints;
+//    }
 
-    function setHitPoints(uint256 tokenId, int8 hitPoints) public{
-        characters[tokenId].hitPoints = hitPoints;
+    function adjustHitPoints(uint256 tokenId, int8 hitPoints) public returns (int8) {
+        int8 newHitPoints = characters[tokenId].hitPoints + hitPoints;
+        characters[tokenId].hitPoints = newHitPoints;
+        return newHitPoints;
     }
 
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
-        string[9] memory parts;
+        string[8] memory parts;
 
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 350"><style>.base { stroke: "black"; font-family: monospace; font-size: 12px; }</style><rect width="100%" height="100%" fill="yellow" /><text x="10" y="20" class="base">';
 

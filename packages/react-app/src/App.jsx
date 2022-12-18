@@ -318,6 +318,9 @@ function App(props) {
         <Menu.Item key="/debug3">
           <Link to="/debug3">Debug AvatarDNA</Link>
         </Menu.Item>
+        <Menu.Item key="/debug4">
+          <Link to="/debug4">Debug Weapon</Link>
+        </Menu.Item>
         <Menu.Item key="/exampleui">
           <Link to="/exampleui">ExampleUI</Link>
         </Menu.Item>
@@ -371,6 +374,23 @@ function App(props) {
 
           <Contract
             name="AvatarDNA"
+            price={price}
+            signer={userSigner}
+            provider={localProvider}
+            address={address}
+            blockExplorer={blockExplorer}
+            contractConfig={contractConfig}
+          />
+        </Route>
+        <Route exact path="/debug4">
+          {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+
+          <Contract
+            name="Weapon"
             price={price}
             signer={userSigner}
             provider={localProvider}

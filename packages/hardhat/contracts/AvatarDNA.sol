@@ -110,7 +110,7 @@ contract AvatarDNA is ERC721URIStorage{
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
-        string[9] memory parts;
+        string[8] memory parts;
         parts[1] = avatars[id].name;
         parts[2] = Strings.toString(uint256(uint8(avatars[id].strength)));
         parts[3] = Strings.toString(uint256(uint8(avatars[id].agility)));
