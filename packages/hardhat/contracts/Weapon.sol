@@ -6,6 +6,7 @@ import "./CyberneticOrganism.sol";
 contract Weapon is ERC721URIStorage{
 
     uint256 public tokenCounter;
+    address cyberneticOrganismAddress;
 
     struct WeaponStats {
         string name;
@@ -18,8 +19,9 @@ contract Weapon is ERC721URIStorage{
 
     WeaponStats[] public weaponStats;
 
-    constructor() ERC721 ("Weapon", "Weapon"){
+    constructor(address addr) ERC721 ("Weapon", "Weapon"){
         tokenCounter = 0;
+        cyberneticOrganismAddress = addr;
     }
 
     function createWeapon(
@@ -46,9 +48,32 @@ contract Weapon is ERC721URIStorage{
         return newTokenId;
     }
 
-    function doDamage(address addr, uint256 tokenId, int8 damage) public{
-        CyberneticOrganism co = CyberneticOrganism(addr);
+    function doDamage(uint256 tokenId, int8 damage) public{
+        CyberneticOrganism co = CyberneticOrganism(cyberneticOrganismAddress);
         co.adjustHitPoints(tokenId, damage);
+        // advance level
+        weaponStats[tokenId].level += 1;
+        // update uri
+        _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+    }
+
+    function getCyberneticOrganismAddress() public view returns (address) {
+        return cyberneticOrganismAddress;
+    }
+
+    function getWeaponStats(uint8 tokenId) public view returns (
+        string memory, // name
+        string memory, // class
+        int8, // level
+        string memory // ipfsURLs
+    )
+    {
+        return (
+        weaponStats[tokenId].name,
+        weaponStats[tokenId].class,
+        weaponStats[tokenId].level,
+        weaponStats[tokenId].ipfsURLs
+        );
     }
 
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {

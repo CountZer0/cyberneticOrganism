@@ -20,13 +20,13 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // eslint-disable-next-line no-unused-vars
   const chainId = await getChainId();
 
-  await deploy("CyberneticOrganism", {
-    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
-    from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
-    log: true,
-    waitConfirmations: 5,
-  });
+  // await deploy("CyberneticOrganism", {
+  //   // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+  //   from: deployer,
+  //   // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+  //   log: true,
+  //   waitConfirmations: 5,
+  // });
 
   await deploy("AvatarDNA", {
     from: deployer,
@@ -44,12 +44,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // args: [cyborg.address],
   });
 
-  await deploy("Weapon", {
-    from: deployer,
-    log: true,
-    waitConfirmations: 5,
-    // args: [cyborg.address],
-  });
+  // await deploy("Weapon", {
+  //   from: deployer,
+  //   log: true,
+  //   waitConfirmations: 5,
+  //   // args: [cyborg.address],
+  // });
 
   // Getting a previously deployed contract
   // const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);
@@ -106,4 +106,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   console.error(error);
   // }
 };
-module.exports.tags = ["CyberneticOrganism", "Cy8029", "AvatarDNA"];
+module.exports.tags = ["AvatarDNA", "Cy8029"];
