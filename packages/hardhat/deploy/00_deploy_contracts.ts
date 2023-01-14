@@ -44,12 +44,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // args: [cyborg.address],
   });
 
-  // await deploy("Weapon", {
-  //   from: deployer,
-  //   log: true,
-  //   waitConfirmations: 5,
-  //   // args: [cyborg.address],
-  // });
+  await deploy("Cyborg", {
+    from: deployer,
+    log: true,
+    waitConfirmations: 5,
+    // args: [cyborg.address],
+  });
 
   // Getting a previously deployed contract
   // const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);

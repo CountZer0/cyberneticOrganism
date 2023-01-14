@@ -5,6 +5,7 @@ import Address from "../Address";
 import Balance from "../Balance";
 import DisplayVariable from "./DisplayVariable";
 import FunctionForm from "./FunctionForm";
+import localBackgroundImage from "../../img/DigitalDNA.png";
 
 const noContractDisplay = (
   <div>
@@ -115,7 +116,21 @@ export default function Contract({
   });
 
   return (
-    <div style={{ margin: "auto", width: "70vw" }}>
+    <div
+      style={{
+        margin: "auto",
+        // width: "70vw",
+        border: "1px solid #cccccc",
+        padding: 16,
+        width: 400,
+        marginTop: 64,
+        backgroundImage: `url(${localBackgroundImage})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: 1024,
+      }}
+    >
       <Card
         title={
           <div style={{ fontSize: 24 }}>
