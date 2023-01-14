@@ -106,4 +106,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   console.error(error);
   // }
 };
-module.exports.tags = ["AvatarDNA", "Cy8029"];
+module.exports.tags = ["AvatarDNA", "Cy8029", "Cyborg"];

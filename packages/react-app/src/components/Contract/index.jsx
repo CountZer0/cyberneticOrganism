@@ -119,21 +119,25 @@ export default function Contract({
     <div
       style={{
         margin: "auto",
-        // width: "70vw",
+        width: "90vw",
         border: "1px solid #cccccc",
         padding: 16,
-        width: 400,
         marginTop: 64,
         backgroundImage: `url(${localBackgroundImage})`,
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        height: 1024,
+        // backgroundRepeat: "no-repeat",
+        // backgroundSize: "cover",
+        // height: 1024,
       }}
     >
       <Card
         title={
-          <div style={{ fontSize: 24 }}>
+          <div
+            style={{
+              fontSize: 24,
+              // width: "70vw",
+            }}
+          >
             {name}
             <div style={{ float: "right" }}>
               <Address value={address} blockExplorer={blockExplorer} />
@@ -142,7 +146,7 @@ export default function Contract({
           </div>
         }
         size="large"
-        style={{ marginTop: 25, width: "100%" }}
+        style={{ marginTop: 25, width: "70%" }}
         loading={contractDisplay && contractDisplay.length <= 0}
       >
         {contractIsDeployed ? contractDisplay : noContractDisplay}
