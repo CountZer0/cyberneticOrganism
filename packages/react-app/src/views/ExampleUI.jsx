@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 import { Balance, Events } from "../components";
-import localBackgroundImage from "../img/Count_Zer0_continuity_artificial_intelligence_e9251595-46d2-4530-b7c3-91fd07c5938a.png";
+// import localBackgroundImage from "../img/Count_Zer0_continuity_artificial_intelligence_e9251595-46d2-4530-b7c3-91fd07c5938a.png";
+import localBackgroundImage from "../img/DigitalDNA.png";
 
 export default function ExampleUI({
   purpose,
@@ -17,6 +18,7 @@ export default function ExampleUI({
   writeContracts,
 }) {
   // const [newPurpose, setNewPurpose] = useState("loading...");
+  writeContracts.CyberneticOrganism = undefined;
   const [setNewPurpose] = useState("loading...");
 
   return (
@@ -84,7 +86,7 @@ export default function ExampleUI({
           <Button
             onClick={() => {
               /* look how you call setPurpose on your contract: */
-              tx(writeContracts.CyberneticOrganism.getHitPoints(0));
+              tx(writeContracts.CyberneticOrganism.getNumberOfCharacters());
             }}
           >
             Get Hit Points
@@ -112,7 +114,7 @@ export default function ExampleUI({
             onClick={() => {
               /* look how we call setPurpose AND send some value along */
               tx(
-                writeContracts.CyberneticOrganism.getHitPoints("💵 Paying for this one!", {
+                writeContracts.CyberneticOrganism.getNumberOfCharacters("💵 Paying for this one!", {
                   value: utils.parseEther("0.001"),
                 }),
               );
