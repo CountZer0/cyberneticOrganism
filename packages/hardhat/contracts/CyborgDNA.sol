@@ -121,7 +121,7 @@ contract CyborgDNA is ERC721URIStorage{
 
         // roll attribute data
         //        uint8[] memory oneToFiftyRolls = DiceUtilities.dieRollsMultiple(50, 1, 3);
-        uint8[3] memory oneToFiftyRolls = [1,2,3];
+//        uint8[3] memory oneToFiftyRolls = [1,2,3];
 
         //        // TODO: AvatarTables
         //        bytes memory style = CyborgTables.getStyle(oneToFiftyRolls[0]-1);

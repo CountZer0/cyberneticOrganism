@@ -44,7 +44,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // args: [cyborg.address],
   });
 
-  await deploy("Cyborg", {
+  await deploy("CyborgDNA", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
@@ -106,4 +106,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   console.error(error);
   // }
 };
-module.exports.tags = ["AvatarDNA", "Cy8029", "Cyborg"];
+module.exports.tags = ["AvatarDNA", "Cy8029", "CyborgDNA"];
