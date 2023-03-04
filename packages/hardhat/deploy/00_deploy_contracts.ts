@@ -44,7 +44,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // args: [cyborg.address],
   });
 
-  await deploy("CyborgDNA", {
+  await deploy("Cy8029DNA", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
