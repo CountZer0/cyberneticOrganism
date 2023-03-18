@@ -61,6 +61,7 @@ contract Cy8029DNA is ERC721URIStorage{
 
         _safeMint(msg.sender, newTokenId);
         _setTokenURI(newTokenId, _buildTokenURI(newTokenId, msg.sender));
+//        _setTokenURI(newTokenId, _buildTokenURI(newTokenId));
         tokenCounter = tokenCounter + 1;
 
         return newTokenId;
@@ -86,6 +87,7 @@ contract Cy8029DNA is ERC721URIStorage{
 
         // update tokenURI TODO: use old wallet address
         _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+//        _setTokenURI(tokenId, _buildTokenURI(tokenId));
     }
 
     function getHitPoints(uint256 tokenId) public view returns (int8){
@@ -97,6 +99,15 @@ contract Cy8029DNA is ERC721URIStorage{
 
         // update tokenURI TODO: use old wallet address
         _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+//        _setTokenURI(tokenId, _buildTokenURI(tokenId));
+    }
+
+    function adjustHitPoints(uint256 tokenId, int8 hitPoints) public returns (int8) {
+        int8 newHitPoints = avatars[tokenId].hitPoints + hitPoints;
+        avatars[tokenId].hitPoints = newHitPoints;
+
+        _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+        return newHitPoints;
     }
 
     function getGlitches(uint256 tokenId) public view returns (int8){
@@ -108,9 +119,11 @@ contract Cy8029DNA is ERC721URIStorage{
 
         // update tokenURI TODO: use old wallet address
         _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+//        _setTokenURI(tokenId, _buildTokenURI(tokenId));
     }
 
     function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
+//    function _buildTokenURI(uint256 id) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
         string[9] memory parts;
@@ -138,9 +151,9 @@ contract Cy8029DNA is ERC721URIStorage{
             abi.encodePacked(
                 attributes,
                 ', {"display_type": "number", "trait_type": "Generation", "value": "1.0"}',
-            //                ', {"trait_type": "Style", "value": "', style, '"}',
-            //                ', {"trait_type": "Feature", "value": "', feature, '"}',
-            //                ', {"trait_type": "Obsession", "value": "', obsession, '"}',
+//                ', {"trait_type": "Style", "value": "', style, '"}',
+//                ', {"trait_type": "Feature", "value": "', feature, '"}',
+//                ', {"trait_type": "Obsession", "value": "', obsession, '"}',
                 ', {"trait_type": "HitPoints", "value": ', parts[7],'}'
             ', {"trait_type": "Glitches", "value": ', parts[8],'}'
             )
@@ -158,8 +171,8 @@ contract Cy8029DNA is ERC721URIStorage{
                             avatars[id].ipfsURLs,
                             '", "external_url":"',
                             avatars[id].ipfsURLs,
-                        //                            '", "description": "I am souldbound to 0x', Strings.toHexString(walletAddress), '."',
-                            '", "description": "I am born from the ThursdayNightAcademy.eth"',
+                            '", "description": "I am souldbound to 0x', Strings.toHexString(walletAddress), '."',
+//                            '", "description": "I am born from the ThursdayNightAcademy.eth"',
                             ', "attributes": [',
                             attributes,
                             ']}'

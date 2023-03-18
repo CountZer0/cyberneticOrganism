@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "./CyberneticOrganism.sol";
+//import "./CyberneticOrganism.sol";
+import "./CyborgDNA.sol";
 
 contract Weapon is ERC721URIStorage{
 
     uint256 public tokenCounter;
-    address cyberneticOrganismAddress;
+    address cyborgDNAaddress;
 
     struct WeaponStats {
         string name;
@@ -21,7 +22,7 @@ contract Weapon is ERC721URIStorage{
 
     constructor(address addr) ERC721 ("Weapon", "WPEN") {
         tokenCounter = 0;
-        cyberneticOrganismAddress = addr;
+        cyborgDNAaddress = addr;
     }
 
     function createWeapon(
@@ -48,17 +49,20 @@ contract Weapon is ERC721URIStorage{
         return newTokenId;
     }
 
-    function doDamage(uint256 tokenId, int8 damage) virtual public{
-        CyberneticOrganism co = CyberneticOrganism(cyberneticOrganismAddress);
-        co.adjustHitPoints(tokenId, damage);
+    function doDamage(uint256 tokenId, int8 damage) public{
+        Cy8029DNA cyborgDNA = Cy8029DNA(cyborgDNAaddress);
+        cyborgDNA.adjustHitPoints(tokenId, damage);
+//        cyborgDNA.setHitPoints(tokenId, damage);
+
         // advance level
         weaponStats[tokenId].level += 1;
+
         // update uri
         _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
     }
 
-    function getCyberneticOrganismAddress() virtual public view returns (address) {
-        return cyberneticOrganismAddress;
+    function getCyborgDNAaddress() public view returns (address) {
+        return cyborgDNAaddress;
     }
 
     function getWeaponStats(uint8 tokenId) public view returns (
@@ -76,7 +80,7 @@ contract Weapon is ERC721URIStorage{
         );
     }
 
-    function _buildTokenURI(uint256 id, address walletAddress) nternal view returns (string memory) {
+    function _buildTokenURI(uint256 id, address walletAddress) internal view returns (string memory) {
 
         // We create the an array of string with max length 17
         string[3] memory parts;

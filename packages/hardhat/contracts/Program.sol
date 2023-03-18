@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "./CyberneticOrganism.sol";
+//import "./CyberneticOrganism.sol";
+import "./CyborgDNA.sol";
 
 contract Program is ERC721URIStorage {
 
     uint256 public tokenCounter;
-    address cyberneticOrganismAddress;
+    address cyborgDNAaddress;
 
     struct ProgramStats {
         string name;
@@ -21,7 +22,7 @@ contract Program is ERC721URIStorage {
 
     constructor(address addr) ERC721 ("Program", "PRGM") {
         tokenCounter = 0;
-        cyberneticOrganismAddress = addr;
+        cyborgDNAaddress = addr;
     }
 
     function createProgram(
@@ -49,16 +50,16 @@ contract Program is ERC721URIStorage {
     }
 
     function doDamage(uint256 tokenId, int8 damage) public{
-        CyberneticOrganism co = CyberneticOrganism(cyberneticOrganismAddress);
-        co.adjustHitPoints(tokenId, damage);
+        Cy8029DNA cyborgDNA = Cy8029DNA(cyborgDNAaddress);
+        cyborgDNA.adjustHitPoints(tokenId, damage);
         // advance level
         programStats[tokenId].damage +=1;
         // update uri
         _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
     }
 
-    function getCyberneticOrganismAddress() public view returns (address) {
-        return cyberneticOrganismAddress;
+    function getCyborgDNAaddress() public view returns (address) {
+        return cyborgDNAaddress;
     }
 
     function getProgramStats(uint8 tokenId) public view returns (
