@@ -49,16 +49,19 @@ contract Weapon is ERC721URIStorage{
         return newTokenId;
     }
 
-    function doDamage(uint256 tokenId, int8 damage) public{
+    function doDamage(uint256 weaponTokenId, uint256 cyborgTokenId, int8 damage) public{
         Cy8029DNA cyborgDNA = Cy8029DNA(cyborgDNAaddress);
-        cyborgDNA.adjustHitPoints(tokenId, damage);
+        cyborgDNA.adjustHitPoints(cyborgTokenId, damage);
 //        cyborgDNA.setHitPoints(tokenId, damage);
 
         // advance level
-        weaponStats[tokenId].level += 1;
+        weaponStats[weaponTokenId].level += 1;
 
-        // update uri
-        _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+        // update weapon uri
+        _setTokenURI(weaponTokenId, _buildTokenURI(weaponTokenId, msg.sender));
+
+        // update cyborg uri
+        cyborgDNA.updateTokenURI(cyborgTokenId);
     }
 
     function getCyborgDNAaddress() public view returns (address) {

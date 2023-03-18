@@ -49,13 +49,18 @@ contract Program is ERC721URIStorage {
         return newTokenId;
     }
 
-    function doDamage(uint256 tokenId, int8 damage) public{
+    function doDamage(uint256 programTokenId, uint256 cyborgTokenId, int8 damage) public{
         Cy8029DNA cyborgDNA = Cy8029DNA(cyborgDNAaddress);
-        cyborgDNA.adjustHitPoints(tokenId, damage);
-        // advance level
-        programStats[tokenId].damage +=1;
+        cyborgDNA.adjustHitPoints(cyborgTokenId, damage);
+
+        // advance something
+//        programStats[programTokenId].damage +=1;
+
         // update uri
-        _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+        _setTokenURI(programTokenId, _buildTokenURI(programTokenId, msg.sender));
+
+        //update cyborg uri
+        cyborgDNA.updateTokenURI(cyborgTokenId);
     }
 
     function getCyborgDNAaddress() public view returns (address) {

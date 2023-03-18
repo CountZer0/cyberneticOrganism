@@ -90,6 +90,12 @@ contract Cy8029DNA is ERC721URIStorage{
 //        _setTokenURI(tokenId, _buildTokenURI(tokenId));
     }
 
+    function updateTokenURI(uint256 tokenId) public{
+        // update tokenURI TODO: use old wallet address
+        _setTokenURI(tokenId, _buildTokenURI(tokenId, msg.sender));
+    }
+
+
     function getHitPoints(uint256 tokenId) public view returns (int8){
         return avatars[tokenId].hitPoints;
     }
