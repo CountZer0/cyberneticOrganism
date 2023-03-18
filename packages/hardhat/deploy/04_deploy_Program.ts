@@ -9,7 +9,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const cyborg = await ethers.getContract("Cy8029DNA", deployer);
 
-  await deploy("Weapon", {
+  await deploy("Program", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
@@ -17,4 +17,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
 
 };
-module.exports.tags = ["Weapon"];
+module.exports.tags = ["Program"];

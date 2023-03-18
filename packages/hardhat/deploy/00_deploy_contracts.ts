@@ -28,28 +28,46 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //   waitConfirmations: 5,
   // });
 
-  await deploy("AvatarDNA", {
-    from: deployer,
-    log: true,
-    waitConfirmations: 5,
-  });
-
-  // const avatarDNA = await ethers.getContract("AvatarDNA", deployer);
   // const cyborg = await ethers.getContract("CyberneticOrganism", deployer);
 
-  await deploy("Cy8029", {
-    from: deployer,
-    log: true,
-    waitConfirmations: 5,
-    // args: [cyborg.address],
-  });
+  // await deploy("AvatarDNA", {
+  //   from: deployer,
+  //   log: true,
+  //   waitConfirmations: 5,
+  // });
+
+  // const avatarDNA = await ethers.getContract("AvatarDNA", deployer);
 
   await deploy("Cy8029DNA", {
     from: deployer,
     log: true,
     waitConfirmations: 5,
-    // args: [cyborg.address],
   });
+
+  // const cyborg = await ethers.getContract("Cy8029DNA", deployer);
+
+    // await deploy("Cy8029", {
+    //   from: deployer,
+    //   log: true,
+    //   waitConfirmations: 5,
+    //   // args: [cyborg.address],
+    // });
+
+    // Deploy in own scripts
+    // await deploy("Weapon", {
+    //   from: deployer,
+    //   log: true,
+    //   waitConfirmations: 5,
+    //   args: [cyborg.address],
+    // });
+    //
+    // await deploy("Program", {
+    //   from: deployer,
+    //   log: true,
+    //   waitConfirmations: 5,
+    //   args: [cyborg.address],
+    // });
+
 
   // Getting a previously deployed contract
   // const CyberneticOrganism = await ethers.getContract("CyberneticOrganism", deployer);
