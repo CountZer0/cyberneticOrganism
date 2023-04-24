@@ -13,7 +13,7 @@ contract Program is ERC721URIStorage {
         string name;
         string description;
 
-        int8 damage;
+        int8 maxDamage;
 
         string ipfsURLs;
     }
@@ -28,7 +28,7 @@ contract Program is ERC721URIStorage {
     function createProgram(
         string memory name,
         string memory description,
-        int8 damage,
+        int8 maxDamage,
         string memory ipfsURLs
     ) public returns (uint256) {
         uint256 newTokenId = tokenCounter;
@@ -37,7 +37,7 @@ contract Program is ERC721URIStorage {
             ProgramStats(
                 name,
                     description,
-                    damage,
+                    maxDamage,
                     ipfsURLs
             )
         );
@@ -51,10 +51,17 @@ contract Program is ERC721URIStorage {
 
     function doDamage(uint256 programTokenId, uint256 cyborgTokenId, int8 damage) public{
         Cy8029DNA cyborgDNA = Cy8029DNA(cyborgDNAaddress);
-        cyborgDNA.adjustHitPoints(cyborgTokenId, damage);
 
-        // advance something
-//        programStats[programTokenId].damage +=1;
+    if (damage > programStats[programTokenId].maxDamage){
+            damage = programStats[programTokenId].maxDamage;
+        }
+        cyborgDNA.adjustHitPoints(cyborgTokenId, -damage);
+
+        // advance level
+//        programStats[weaponTokenId].level += 1;
+
+        // improve damage
+        programStats[programTokenId].maxDamage +=1;
 
         // update uri
         _setTokenURI(programTokenId, _buildTokenURI(programTokenId, msg.sender));
@@ -77,7 +84,7 @@ contract Program is ERC721URIStorage {
         return (
         programStats[tokenId].name,
         programStats[tokenId].description,
-        programStats[tokenId].damage,
+        programStats[tokenId].maxDamage,
         programStats[tokenId].ipfsURLs
         );
     }
@@ -88,7 +95,7 @@ contract Program is ERC721URIStorage {
         string[3] memory parts;
         parts[0] = programStats[id].name;
         parts[1] = programStats[id].description;
-        parts[2] = Strings.toString(uint256(uint8(programStats[id].damage)));
+        parts[2] = Strings.toString(uint256(uint8(programStats[id].maxDamage)));
 
 
         // roll attribute data
